@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct QuizModel {
+struct Quiz {
 
-    let quiz: [[String: String]] = [
+    let questions: [[String: String]] = [
         [
             "question": "Who is the founder of Choy Li Fut?",
             "1": "Bruce Lee",
