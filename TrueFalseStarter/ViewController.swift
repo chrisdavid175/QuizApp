@@ -19,6 +19,9 @@ class ViewController: UIViewController {
     var questionDictionary: [String: String] = [:]
     
     var gameSound = Sound(actualSound: 0, name: "GameSound")
+    var correctSound = Sound(actualSound: 0, name: "Correct")
+    var wrongSound = Sound(actualSound: 0, name: "Wrong")
+
     
     var trivia = Quiz()
     
@@ -32,8 +35,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameSound.loadSound()
         // Start game
+        gameSound.loadSound()
+        correctSound.loadSound()
+        wrongSound.loadSound()
         gameSound.playSound()
         displayQuestion()
     }
@@ -87,8 +92,10 @@ class ViewController: UIViewController {
         if (sender === Answer1 &&  correctAnswer == "1" ) || (sender === Answer2 && correctAnswer == "2" ) || (sender === Answer3 && correctAnswer == "3" ) || (sender === Answer4 && correctAnswer == "4" ) {
             correctQuestions += 1
             questionField.text = "Correct!"
+            correctSound.playSound();
         } else {
             questionField.text = "Sorry, wrong answer!"
+            wrongSound.playSound();
         }
         
         
