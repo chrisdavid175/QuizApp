@@ -13,10 +13,12 @@ struct Sound {
     var actualSound: SystemSoundID
     var name: String
     
+    
     init(actualSound: SystemSoundID, name: String) {
         self.actualSound = actualSound
         self.name = name
     }
+    
     
     mutating func loadSound() -> SystemSoundID {
         let pathToSoundFile = NSBundle.mainBundle().pathForResource(self.name, ofType: "wav")
