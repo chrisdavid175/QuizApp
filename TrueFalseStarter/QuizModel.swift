@@ -10,7 +10,7 @@ import Foundation
 
 struct Quiz {
 
-    let questions: [[String: String]] = [
+    var questions: [[String: String]] = [
         [
             "question": "Who is the founder of Choy Li Fut?",
             "1": "Bruce Lee",

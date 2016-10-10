@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     var gameSound = Sound(actualSound: 0, name: "GameSound")
     
-    let trivia = Quiz()
+    var trivia = Quiz()
     
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var Answer1: UIButton!
@@ -45,7 +45,8 @@ class ViewController: UIViewController {
     func displayQuestion() {
 
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(trivia.questions.count)
-        let questionDictionary = trivia.questions[indexOfSelectedQuestion]
+        //let questionDictionary = trivia.questions[indexOfSelectedQuestion]
+        var questionDictionary = trivia.questions.removeAtIndex(indexOfSelectedQuestion)
         questionField.text = questionDictionary["question"]
         Answer1.setTitle(questionDictionary["1"], forState: .Normal)
         Answer2.setTitle(questionDictionary["2"], forState: .Normal)
