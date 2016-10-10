@@ -106,6 +106,10 @@
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="Answer1" destination="NGe-ej-TFy" id="9XK-AL-QM2"/>
+                        <outlet property="Answer2" destination="MI0-vu-1oQ" id="wWQ-S5-r8a"/>
+                        <outlet property="Answer3" destination="hme-ev-7Gy" id="qe1-Pa-bnb"/>
+                        <outlet property="Answer4" destination="Aig-LY-1td" id="6Bo-fW-LKZ"/>
                         <outlet property="playAgainButton" destination="K17-uy-MvB" id="0Bx-Cm-ye0"/>
                         <outlet property="questionField" destination="I3V-ih-1Ky" id="7UI-o2-ATi"/>
                     </connections>

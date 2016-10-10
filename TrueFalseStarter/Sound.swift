@@ -13,7 +13,7 @@ struct Sound {
     var actualSound: SystemSoundID
     var name: String
     
-    init(actualSound: SystemSoundID, fileName name: String) {
+    init(actualSound: SystemSoundID, name: String) {
         self.actualSound = actualSound
         self.name = name
     }

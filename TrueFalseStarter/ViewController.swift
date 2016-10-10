@@ -12,31 +12,29 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    let questionsPerRound = 4
+    let questionsPerRound = 5
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
     
-    var gameSound = Sound(actualSound: 0, fileName: "GameSound")
+    //var gameSound = Sound(actualSound: 0, name: "GameSound")
+    var gameSound: SystemSoundID = 0
     
-    let trivia: [[String : String]] = [
-        ["Question": "Only female koalas can whistle", "Answer": "False"],
-        ["Question": "Blue whales are technically whales", "Answer": "True"],
-        ["Question": "Camels are cannibalistic", "Answer": "False"],
-        ["Question": "All ducks are birds", "Answer": "True"]
-    ]
+    let trivia = Quiz()
     
     @IBOutlet weak var questionField: UILabel!
-    @IBOutlet weak var trueButton: UIButton!
-    @IBOutlet weak var falseButton: UIButton!
+    @IBOutlet weak var Answer1: UIButton!
+    @IBOutlet weak var Answer2: UIButton!
+    @IBOutlet weak var Answer3: UIButton!
+    @IBOutlet weak var Answer4: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        gameSound.loadSound()
+        loadSound()
         // Start game
-        gameSound.playSound()
+        playSound()
         displayQuestion()
     }
 
@@ -46,16 +44,18 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
-        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(trivia.count)
-        let questionDictionary = trivia[indexOfSelectedQuestion]
-        questionField.text = questionDictionary["Question"]
+        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(trivia.questions.count)
+        let questionDictionary = trivia.questions[indexOfSelectedQuestion]
+        questionField.text = questionDictionary["question"]
         playAgainButton.hidden = true
     }
     
     func displayScore() {
         // Hide the answer buttons
-        trueButton.hidden = true
-        falseButton.hidden = true
+        Answer1.hidden = true
+        Answer2.hidden = true
+        Answer3.hidden = true
+        Answer4.hidden = true
         
         // Display play again button
         playAgainButton.hidden = false
@@ -68,15 +68,20 @@ class ViewController: UIViewController {
         // Increment the questions asked counter
         questionsAsked += 1
         
-        let selectedQuestionDict = trivia[indexOfSelectedQuestion]
-        let correctAnswer = selectedQuestionDict["Answer"]
+        let selectedQuestionDict = trivia.questions[indexOfSelectedQuestion]
+        let correctAnswer = selectedQuestionDict["answer"]
         
-        if (sender === trueButton &&  correctAnswer == "True") || (sender === falseButton && correctAnswer == "False") {
+        if (sender === Answer1 &&  correctAnswer == "1" ) || (sender === Answer2 && correctAnswer == "2" ) || (sender === Answer3 && correctAnswer == "3" ) || (sender === Answer4 && correctAnswer == "4" ) {
             correctQuestions += 1
             questionField.text = "Correct!"
         } else {
             questionField.text = "Sorry, wrong answer!"
         }
+        
+        
+        
+        
+        
         
         loadNextRoundWithDelay(seconds: 2)
     }
@@ -93,8 +98,10 @@ class ViewController: UIViewController {
     
     @IBAction func playAgain() {
         // Show the answer buttons
-        trueButton.hidden = false
-        falseButton.hidden = false
+        Answer1.hidden = false
+        Answer2.hidden = false
+        Answer3.hidden = false
+        Answer4.hidden = false
         
         questionsAsked = 0
         correctQuestions = 0
@@ -116,6 +123,17 @@ class ViewController: UIViewController {
             self.nextRound()
         }
     }
+    
+    func loadSound() {
+        let pathToSoundFile = NSBundle.mainBundle().pathForResource("GameSound", ofType: "wav")
+        let soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL, &gameSound)
+    }
+    
+    func playSound() {
+        AudioServicesPlaySystemSound(gameSound)
+    }
+
     
 }
 
