@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
+    var questionDictionary: [String: String] = [:]
     
     var gameSound = Sound(actualSound: 0, name: "GameSound")
     
@@ -46,7 +47,8 @@ class ViewController: UIViewController {
 
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.questions.count)
         //let questionDictionary = trivia.questions[indexOfSelectedQuestion]
-        var questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
+        //var questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
+        questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
         questionField.text = questionDictionary["question"]
         Answer1.setTitle(questionDictionary["1"], for: UIControlState())
         Answer2.setTitle(questionDictionary["2"], for: UIControlState())
@@ -78,8 +80,9 @@ class ViewController: UIViewController {
         // Increment the questions asked counter
         questionsAsked += 1
         
-        let selectedQuestionDict = trivia.questions[indexOfSelectedQuestion]
-        let correctAnswer = selectedQuestionDict["answer"]
+        //let selectedQuestionDict = trivia.questions[indexOfSelectedQuestion]
+        //let correctAnswer = selectedQuestionDict["answer"]
+        let correctAnswer = questionDictionary["answer"]
         
         if (sender === Answer1 &&  correctAnswer == "1" ) || (sender === Answer2 && correctAnswer == "2" ) || (sender === Answer3 && correctAnswer == "3" ) || (sender === Answer4 && correctAnswer == "4" ) {
             correctQuestions += 1
@@ -115,6 +118,7 @@ class ViewController: UIViewController {
         
         questionsAsked = 0
         correctQuestions = 0
+        trivia = Quiz()
         nextRound()
     }
     
