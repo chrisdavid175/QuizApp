@@ -43,9 +43,18 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
+
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(trivia.questions.count)
         let questionDictionary = trivia.questions[indexOfSelectedQuestion]
         questionField.text = questionDictionary["question"]
+        Answer1.setTitle(questionDictionary["1"], forState: .Normal)
+        Answer2.setTitle(questionDictionary["2"], forState: .Normal)
+        Answer3.setTitle(questionDictionary["3"], forState: .Normal)
+        Answer4.setTitle(questionDictionary["4"], forState: .Normal)
+        Answer1.hidden = false
+        Answer2.hidden = false
+        Answer3.hidden = false
+        Answer4.hidden = false
         playAgainButton.hidden = true
     }
     
@@ -61,6 +70,8 @@ class ViewController: UIViewController {
         
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
         
+    }
+    @IBAction func checkAnswer2(sender: UIButton) {
     }
     
     @IBAction func checkAnswer(sender: UIButton) {
