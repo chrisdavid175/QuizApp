@@ -21,9 +21,9 @@ struct Sound {
     
     
     mutating func loadSound()  {
-        let pathToSoundFile = NSBundle.mainBundle().pathForResource(self.name, ofType: "wav")
-        let soundURL = NSURL(fileURLWithPath: pathToSoundFile!)
-        AudioServicesCreateSystemSoundID(soundURL, &actualSound)
+        let pathToSoundFile = Bundle.main.path(forResource: self.name, ofType: "wav")
+        let soundURL = URL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL as CFURL, &actualSound)
     }
     
     func playSound() {

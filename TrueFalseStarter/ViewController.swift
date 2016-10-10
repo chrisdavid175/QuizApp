@@ -44,37 +44,37 @@ class ViewController: UIViewController {
     
     func displayQuestion() {
 
-        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextIntWithUpperBound(trivia.questions.count)
+        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.questions.count)
         //let questionDictionary = trivia.questions[indexOfSelectedQuestion]
-        var questionDictionary = trivia.questions.removeAtIndex(indexOfSelectedQuestion)
+        var questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
         questionField.text = questionDictionary["question"]
-        Answer1.setTitle(questionDictionary["1"], forState: .Normal)
-        Answer2.setTitle(questionDictionary["2"], forState: .Normal)
-        Answer3.setTitle(questionDictionary["3"], forState: .Normal)
-        Answer4.setTitle(questionDictionary["4"], forState: .Normal)
-        Answer1.hidden = false
-        Answer2.hidden = false
-        Answer3.hidden = false
-        Answer4.hidden = false
-        playAgainButton.hidden = true
+        Answer1.setTitle(questionDictionary["1"], for: UIControlState())
+        Answer2.setTitle(questionDictionary["2"], for: UIControlState())
+        Answer3.setTitle(questionDictionary["3"], for: UIControlState())
+        Answer4.setTitle(questionDictionary["4"], for: UIControlState())
+        Answer1.isHidden = false
+        Answer2.isHidden = false
+        Answer3.isHidden = false
+        Answer4.isHidden = false
+        playAgainButton.isHidden = true
     }
     
     func displayScore() {
         // Hide the answer buttons
-        Answer1.hidden = true
-        Answer2.hidden = true
-        Answer3.hidden = true
-        Answer4.hidden = true
+        Answer1.isHidden = true
+        Answer2.isHidden = true
+        Answer3.isHidden = true
+        Answer4.isHidden = true
         
         // Display play again button
-        playAgainButton.hidden = false
+        playAgainButton.isHidden = false
         
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
         
     }
     
     
-    @IBAction func checkAnswer(sender: UIButton) {
+    @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
         questionsAsked += 1
         
@@ -108,10 +108,10 @@ class ViewController: UIViewController {
     
     @IBAction func playAgain() {
         // Show the answer buttons
-        Answer1.hidden = false
-        Answer2.hidden = false
-        Answer3.hidden = false
-        Answer4.hidden = false
+        Answer1.isHidden = false
+        Answer2.isHidden = false
+        Answer3.isHidden = false
+        Answer4.isHidden = false
         
         questionsAsked = 0
         correctQuestions = 0
@@ -122,14 +122,14 @@ class ViewController: UIViewController {
     
     // MARK: Helper Methods
     
-    func loadNextRoundWithDelay(seconds seconds: Int) {
+    func loadNextRoundWithDelay(seconds: Int) {
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
         let delay = Int64(NSEC_PER_SEC * UInt64(seconds))
         // Calculates a time value to execute the method given current time and delay
-        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, delay)
+        let dispatchTime = DispatchTime.now() + Double(delay) / Double(NSEC_PER_SEC)
         
         // Executes the nextRound method at the dispatch time on the main queue
-        dispatch_after(dispatchTime, dispatch_get_main_queue()) {
+        DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
             self.nextRound()
         }
     }
