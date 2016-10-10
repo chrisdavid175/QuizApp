@@ -71,8 +71,7 @@ class ViewController: UIViewController {
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
         
     }
-    @IBAction func checkAnswer2(sender: UIButton) {
-    }
+    
     
     @IBAction func checkAnswer(sender: UIButton) {
         // Increment the questions asked counter
