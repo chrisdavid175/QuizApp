@@ -22,6 +22,7 @@ class ViewController: UIViewController {
     var correctSound = Sound(actualSound: 0, name: "Correct")
     var wrongSound = Sound(actualSound: 0, name: "Wrong")
 
+    var timer = Timer()
     
     var trivia = Quiz()
     
@@ -41,7 +42,9 @@ class ViewController: UIViewController {
         wrongSound.loadSound()
         gameSound.playSound()
         displayQuestion()
+
     }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,6 +67,12 @@ class ViewController: UIViewController {
         Answer3.isHidden = false
         Answer4.isHidden = false
         playAgainButton.isHidden = true
+        
+        //Clear the timer
+        timer.invalidate();
+        timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(ViewController.throwTimeout), userInfo: nil, repeats: false)
+
+        
     }
     
     func displayScore() {
@@ -89,6 +98,9 @@ class ViewController: UIViewController {
         //let correctAnswer = selectedQuestionDict["answer"]
         let correctAnswer = questionDictionary["answer"]
         
+        //Clear the timer here in case the second to last question timed out but not the last one
+        timer.invalidate();
+        
         if (sender === Answer1 &&  correctAnswer == "1" ) || (sender === Answer2 && correctAnswer == "2" ) || (sender === Answer3 && correctAnswer == "3" ) || (sender === Answer4 && correctAnswer == "4" ) {
             correctQuestions += 1
             questionField.text = "Correct!"
@@ -107,7 +119,7 @@ class ViewController: UIViewController {
     }
     
     func nextRound() {
-        if questionsAsked == questionsPerRound {
+        if questionsAsked >= questionsPerRound {
             // Game is over
             displayScore()
         } else {
@@ -123,6 +135,7 @@ class ViewController: UIViewController {
         Answer3.isHidden = false
         Answer4.isHidden = false
         
+        //Reset variables for new round
         questionsAsked = 0
         correctQuestions = 0
         trivia = Quiz()
@@ -143,6 +156,13 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
             self.nextRound()
         }
+    }
+
+    func throwTimeout() {
+        self.questionField.text = "Sorry, time is up!"
+        self.wrongSound.playSound();
+        questionsAsked += 1
+        self.loadNextRoundWithDelay(seconds: 2)
     }
     
     
