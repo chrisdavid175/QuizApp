@@ -97,6 +97,7 @@ class ViewController: UIViewController {
         //let selectedQuestionDict = trivia.questions[indexOfSelectedQuestion]
         //let correctAnswer = selectedQuestionDict["answer"]
         let correctAnswer = questionDictionary["answer"]
+        let correctAnswerText = questionDictionary[correctAnswer!]
         
         //Clear the timer here in case the second to last question timed out but not the last one
         timer.invalidate();
@@ -106,7 +107,7 @@ class ViewController: UIViewController {
             questionField.text = "Correct!"
             correctSound.playSound();
         } else {
-            questionField.text = "Sorry, wrong answer!"
+            questionField.text = "Sorry, correct answer is: \n" + correctAnswerText!
             wrongSound.playSound();
         }
         
