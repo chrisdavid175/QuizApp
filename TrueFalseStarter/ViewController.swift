@@ -12,6 +12,7 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
+    // Declare/Set the variables
     let questionsPerRound = 5
     var questionsAsked = 0
     var correctQuestions = 0
@@ -54,8 +55,7 @@ class ViewController: UIViewController {
     func displayQuestion() {
 
         indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.questions.count)
-        //let questionDictionary = trivia.questions[indexOfSelectedQuestion]
-        //var questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
+        //Remove the question from the quiz so that it is not repeated during a round
         questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
         questionField.text = questionDictionary.name
         Answer1.setTitle(questionDictionary.options[0], for: UIControlState())
@@ -68,8 +68,9 @@ class ViewController: UIViewController {
         Answer4.isHidden = false
         playAgainButton.isHidden = true
         
-        //Clear the timer
+        //Clear the timer in case it is set
         timer.invalidate();
+        //Set timer for lighting round here
         timer = Timer.scheduledTimer(timeInterval: 15, target: self, selector: #selector(ViewController.throwTimeout), userInfo: nil, repeats: false)
 
         
@@ -94,8 +95,7 @@ class ViewController: UIViewController {
         // Increment the questions asked counter
         questionsAsked += 1
         
-        //let selectedQuestionDict = trivia.questions[indexOfSelectedQuestion]
-        //let correctAnswer = selectedQuestionDict["answer"]
+        // Pull the text from the correct answer
         let correctAnswer = questionDictionary.answer
         let correctAnswerText = questionDictionary.options[correctAnswer]
         
@@ -110,11 +110,6 @@ class ViewController: UIViewController {
             questionField.text = "Sorry, correct answer is: \n" + correctAnswerText
             wrongSound.playSound();
         }
-        
-        
-        
-        
-        
         
         loadNextRoundWithDelay(seconds: 2)
     }
@@ -160,6 +155,7 @@ class ViewController: UIViewController {
     }
 
     func throwTimeout() {
+        // Mark a question incorrect if time exceed 15 seconds
         self.questionField.text = "Sorry, time is up!"
         self.wrongSound.playSound();
         questionsAsked += 1
