@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
-    var questionDictionary: [String: String] = [:]
+    var questionDictionary = Question()
     
     var gameSound = Sound(actualSound: 0, name: "GameSound")
     var correctSound = Sound(actualSound: 0, name: "Correct")
@@ -57,11 +57,11 @@ class ViewController: UIViewController {
         //let questionDictionary = trivia.questions[indexOfSelectedQuestion]
         //var questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
         questionDictionary = trivia.questions.remove(at: indexOfSelectedQuestion)
-        questionField.text = questionDictionary["question"]
-        Answer1.setTitle(questionDictionary["1"], for: UIControlState())
-        Answer2.setTitle(questionDictionary["2"], for: UIControlState())
-        Answer3.setTitle(questionDictionary["3"], for: UIControlState())
-        Answer4.setTitle(questionDictionary["4"], for: UIControlState())
+        questionField.text = questionDictionary.name
+        Answer1.setTitle(questionDictionary.options[0], for: UIControlState())
+        Answer2.setTitle(questionDictionary.options[1], for: UIControlState())
+        Answer3.setTitle(questionDictionary.options[2], for: UIControlState())
+        Answer4.setTitle(questionDictionary.options[3], for: UIControlState())
         Answer1.isHidden = false
         Answer2.isHidden = false
         Answer3.isHidden = false
@@ -96,18 +96,18 @@ class ViewController: UIViewController {
         
         //let selectedQuestionDict = trivia.questions[indexOfSelectedQuestion]
         //let correctAnswer = selectedQuestionDict["answer"]
-        let correctAnswer = questionDictionary["answer"]
-        let correctAnswerText = questionDictionary[correctAnswer!]
+        let correctAnswer = questionDictionary.answer
+        let correctAnswerText = questionDictionary.options[correctAnswer]
         
         //Clear the timer here in case the second to last question timed out but not the last one
         timer.invalidate();
         
-        if (sender === Answer1 &&  correctAnswer == "1" ) || (sender === Answer2 && correctAnswer == "2" ) || (sender === Answer3 && correctAnswer == "3" ) || (sender === Answer4 && correctAnswer == "4" ) {
+        if (sender === Answer1 &&  correctAnswer == 0 ) || (sender === Answer2 && correctAnswer == 1 ) || (sender === Answer3 && correctAnswer == 2 ) || (sender === Answer4 && correctAnswer == 3 ) {
             correctQuestions += 1
             questionField.text = "Correct!"
             correctSound.playSound();
         } else {
-            questionField.text = "Sorry, correct answer is: \n" + correctAnswerText!
+            questionField.text = "Sorry, correct answer is: \n" + correctAnswerText
             wrongSound.playSound();
         }
         

@@ -10,99 +10,26 @@ import Foundation
 
 struct Quiz {
 
-    var questions: [[String: String]] = [
-        [
-            "question": "Who is the founder of Choy Li Fut?",
-            "1": "Bruce Lee",
-            "2": "Chan Heung",
-            "3": "Jet Li",
-            "4": "Jackin Chan",
-            "answer": "2"
-        ],
+    var questions: [Question] = [
         
-        [
-            "question": "From what area of China is Choy Li Fut derived?",
-            "1": "North",
-            "2": "South",
-            "3": "Both",
-            "4": "Neither",
-            "answer": "3"
-        ],
-        
-        [
-            "question": "Who is the found of White Dragon Martial Arts?",
-            "1": "John Doe",
-            "2": "James Brown",
-            "3": "Nathan Fisher",
-            "4": "Barrack Obama",
-            "answer": "3"
-        ],
-        
-        [
-            "question": "Who is the grand master of White Dragon Martial Arts?",
-            "1": "Brandon Lee",
-            "2": "Tony Jaa",
-            "3": "Doc Fai Wong",
-            "4": "Jean-Claude Van Damme",
-            "answer": "3"
-        ],
-        
-        [
-            "question": "What is a tsop choi?",
-            "1": "Kick",
-            "2": "Palm Strike",
-            "3": "Spear Hand",
-            "4": "Leopard Fist",
-            "answer": "4"
-        ],
-        
-        [
-            "question": "Translate Siu Sup Ji Kuen",
-            "1": "Small Hand Form",
-            "2": "Small Cross Pattern Hand Form",
-            "3": "Big Hand Form",
-            "4": "Big Cross Chain ",
-            "answer": "2"
-        ],
-        
-        [
-            "question": "Translate Siu Mui Fa Kuen",
-            "1": "Pretty Flower Form",
-            "2": "Small Plum Blossom Hand Form",
-            "3": "Cactus Hand Form",
-            "4": "Small Tree Form",
-            "answer": "2"
-        ],
-        
-        [
-            "question": "What is martial spirit?",
-            "1": "Resolve",
-            "2": "Weakness",
-            "3": "Brute Strength",
-            "4": "Skil",
-            "answer": "1"
-        ],
-        
-        [
-            "question": "Apart of what organization is White Dragon?",
-            "1": "Plub Blossom Federation",
-            "2": "International Kung Fu Federation",
-            "3": "Federation of Martials Arts",
-            "4": "Kung Fu Club",
-            "answer": "1"
-        ],
-        
-        [
-            "question": "What is a fu jow?",
-            "1": "Uppercut",
-            "2": "Low Kick",
-            "3": "Dragon Claw",
-            "4": "Tiger Claw",
-            "answer": "4"
-        ]
-
+        Question(name: "Who is the founder of Choy Li Fut?", options: ["Bruce Lee", "Chan Heung", "Jet Li", "Jackie"], answer: 1),
+        Question(name: "From what area of China is Choy Li Fut derived?", options: ["North","South","Both","Neither"], answer: 2),
+        Question(name: "Who is the found of White Dragon Martial Arts?", options: ["John Doe","James Brown","Nathan Fisher","Barrack Obama"], answer: 2),
+        Question(name: "Who is the grand master of White Dragon Martial Arts?", options: ["Brandon Lee","Tony Jaa","Doc Fai Wong","Jean-Claude Van Damme"], answer: 2),
+        Question(name: "What is a tsop choi?", options: ["Kick","Palm Strike","Spear Hand","Leopard Fist"], answer: 3),
+        Question(name: "Translate Siu Sup Ji Kuen", options: ["Small Hand Form","Small Cross Pattern Hand Form","Big Hand Form","Big Cross Chain "], answer: 1),
+        Question(name: "Translate Siu Mui Fa Kuen", options: ["Pretty Flower Form","Small Plum Blossom Hand Form","Cactus Hand Form","Small Tree Form"], answer: 1),
+        Question(name: "What is martial spirit?", options: ["Resolve","Weakness","Brute Strength","Skil"], answer: 0),
+        Question(name: "Apart of what organization is White Dragon?", options: ["Plub Blossom Federation","International Kung Fu Federation","Federation of Martials Arts","Kung Fu Club"], answer: 0),
+        Question(name: "What is a fu jow?", options: ["Uppercut","Low Kick","Dragon Claw","Tiger Claw"], answer: 3)
     ]
 
     
     
+}
+
+struct Question {
+    var name: String = ""
+    var options: [String] = []
+    var answer: Int = 0
 }
